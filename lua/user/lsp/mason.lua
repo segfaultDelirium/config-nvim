@@ -7,7 +7,7 @@ local servers = {
 	"bashls",
 	"jsonls",
 	"yamlls",
- -- "elixir-ls"
+  "elixirls"
 }
 
 local settings = {
@@ -51,3 +51,10 @@ for _, server in pairs(servers) do
 
 	lspconfig[server].setup(opts)
 end
+
+lspconfig.elixirls.setup{
+  cmd = {"elixir-ls" },
+	on_attach = require("user.lsp.handlers").on_attach,
+	capabilities = require("user.lsp.handlers").capabilities,
+}
+
