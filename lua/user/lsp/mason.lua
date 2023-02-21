@@ -7,7 +7,10 @@ local servers = {
 	"bashls",
 	"jsonls",
 	"yamlls",
-  "elixirls"
+  "elixirls",
+  "efm",
+  "jdtls"
+
 }
 
 local settings = {
@@ -37,24 +40,46 @@ end
 local opts = {}
 
 for _, server in pairs(servers) do
-	opts = {
-		on_attach = require("user.lsp.handlers").on_attach,
-		capabilities = require("user.lsp.handlers").capabilities,
-	}
+  -- print(server)
+  if(server =="elixirls"
+  or server == "efm") then
+    --do nothing 
 
-	server = vim.split(server, "@")[1]
+  else
+    opts = {
+      on_attach = require("user.lsp.handlers").on_attach,
+      capabilities = require("user.lsp.handlers").capabilities,
+    }
 
-	local require_ok, conf_opts = pcall(require, "user.lsp.settings." .. server)
-	if require_ok then
-		opts = vim.tbl_deep_extend("force", conf_opts, opts)
-	end
+    server = vim.split(server, "@")[1]
 
-	lspconfig[server].setup(opts)
+    local require_ok, conf_opts = pcall(require, "user.lsp.settings." .. server)
+    if require_ok then
+      opts = vim.tbl_deep_extend("force", conf_opts, opts)
+    end
+
+    lspconfig[server].setup(opts)
+
+  end
 end
 
 lspconfig.elixirls.setup{
   cmd = {"elixir-ls" },
 	on_attach = require("user.lsp.handlers").on_attach,
 	capabilities = require("user.lsp.handlers").capabilities,
+  settings = {
+    elixirLS = {
+      dialyzerEnabled = true,
+    }
+  }
 }
+
+lspconfig.efm.setup({
+	on_attach = require("user.lsp.handlers").on_attach,
+	capabilities = require("user.lsp.handlers").capabilities,
+  filetypes = {"elixir"}
+})
+
+
+
 
