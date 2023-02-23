@@ -9,7 +9,12 @@ local servers = {
 	"yamlls",
   "elixirls",
   "efm",
-  "jdtls"
+  "jdtls",
+  "omnisharp",
+  "clangd"
+--  "csharp-language-server"
+
+
 
 }
 
@@ -42,7 +47,7 @@ local opts = {}
 for _, server in pairs(servers) do
   -- print(server)
   if(server =="elixirls"
-  or server == "efm") then
+    or server == "efm") then
     --do nothing 
 
   else
