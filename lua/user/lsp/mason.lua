@@ -11,7 +11,7 @@ local servers = {
   "efm",
   "jdtls",
   "omnisharp",
-  "clangd"
+  "clangd",
 --  "csharp-language-server"
 
 
