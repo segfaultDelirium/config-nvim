@@ -82,7 +82,15 @@ lspconfig.elixirls.setup{
 lspconfig.efm.setup({
 	on_attach = require("user.lsp.handlers").on_attach,
 	capabilities = require("user.lsp.handlers").capabilities,
-  filetypes = {"elixir"}
+  filetypes = {"elixir", "python"},
+  settings = {
+    rootMarkers = {".git/"},
+    languages = {
+      python = {
+        {formatCommand = "black --quiet - ", formatStdin = true}
+      }
+    }
+  }
 })
 
 
